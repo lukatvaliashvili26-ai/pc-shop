@@ -158,6 +158,6 @@ def order_finish():
 
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()
-        init_components()
+        db.create_all()  # ეს შექმნის ბაზას სერვერზე გაშვებისას
+        init_components() # ეს ჩაწერს პროდუქტებს ბაზაში
     app.run()
