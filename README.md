@@ -1,2 +1,0 @@
-# pc-shop
-online shop
