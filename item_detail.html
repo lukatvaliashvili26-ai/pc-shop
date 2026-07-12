@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row neon-box p-4 mx-1">
+    <div class="col-md-6">
+<img src="{{ url_for('static', filename=obj.img_link) }}" class="img-fluid w-100" style="border: 2px solid #00ffcc; box-shadow: 0 0 15px #00ffcc;">
+    </div>
+    <div class="col-md-6 d-flex flex-column justify-content-center">
+        <span class="text-muted">კატეგორია: {{ obj.tech_type }}</span>
+        <h2 class="text-white my-2">{{ obj.title }}</h2>
+        <p class="text-info">{{ obj.info }}</p>
+        <h3 class="text-warning font-weight-bold my-3">${{ obj.cost }}</h3>
+        <a href="{{ url_for('push_to_cart', el_id=obj.id) }}" class="btn btn-neon btn-lg btn-block">დამატება კალათაში</a>
+    </div>
+</div>
+{% endblock %}
