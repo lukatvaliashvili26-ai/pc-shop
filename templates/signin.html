@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5 neon-box p-4 text-white">
+        <h3 class="text-center text-info mb-4">ავტორიზაცია</h3>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.email_address.label }}
+                {{ form.email_address(class="form-control bg-dark text-white border-info") }}
+            </div>
+            <div class="form-group">
+                {{ form.secure_password.label }}
+                {{ form.secure_password(class="form-control bg-dark text-white border-info") }}
+            </div>
+            {{ form.submit(class="btn btn-neon btn-block mt-4") }}
+        </form>
+    </div>
+</div>
+{% endblock %}
