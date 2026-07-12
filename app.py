@@ -6,7 +6,8 @@ from forms import SignUpForm, SignInForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'neon-cyber-secret-2026'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cyber_shop.db'
+# app.py-ის თავში, სადაც კონფიგურაციაა
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
