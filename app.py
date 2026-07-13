@@ -93,7 +93,7 @@ def register():
         if existing_user:
             flash("მომხმარებელი უკვე არსებობს", "danger")
             return render_template(
-                "register.html",
+                "signup.html",
                 form=form
             )
 
