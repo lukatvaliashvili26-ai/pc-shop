@@ -79,35 +79,29 @@ def item_view(item_id):
     return render_template('item_detail.html', obj=obj)
 
 
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    if current_user.is_authenticated:
-        return redirect(url_for('catalog'))
-    f = SignUpForm()
-    if f.validate_on_submit():
-        pw_hash = bcrypt.generate_password_hash(f.secure_password.data).decode('utf-8')
-        acc = Account(nickname=f.nickname.data, email_address=f.email_address.data, secure_password=pw_hash)
-        db.session.add(acc)
-        try:
-            db.session.commit()
-            flash('ექაუნთი შეიქმნა! გაიარეთ ავტორიზაცია.', 'success')
-            return redirect(url_for('signin'))
-        except:
-            db.session.rollback()
-            flash('მონაცემები უკვე დაკავებულია.', 'danger')
-    return render_template('signup.html', form=f)
-
-
-@app.route('/signin', methods=['GET', 'POST'])
-def signin():
-    if current_user.is_authenticated:
-        return redirect(url_for('catalog'))
-    f = SignInForm()
-    if f.validate_on_submit():
-        acc = Account.query.filter_by(email_address=f.email_address.data).first()
-        if acc and bcrypt.check_password_hash(acc.secure_password.data, f.secure_password.data):
-            login_user(acc)
-            return redirect(url_for('catalog'))
+app.route("/reg", methods=["Get", "Post"])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        existing_user = User.query.filter_by(username=form.username.data).first()
+        if existing_user:
+            flash("username is already taken!", "danger")
+            return render_template("/main/register.html", form=form)
+        reg_user = User(
+            username=form.username.data,
+            password=generate_password_hash(form.password.data),
+            birthday=form.birthday.data,
+            gender=form.gender.data,
+            comment=form.comment.data
+        )
+        db.session.add(reg_user)
+        db.session.commit()
+        flash("you have successfully registered!", "success")
+        return redirect("/")
+  @app.route("/logout")
+def log_out():
+    logout_user()
+    return redirect("/")
         else:
             flash('არასწორი ფოსტა ან პაროლი.', 'danger')
     return render_template('signin.html', form=f)
