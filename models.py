@@ -7,7 +7,7 @@ class Account(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     nickname = db.Column(db.String(50), unique=True, nullable=False)
     email_address = db.Column(db.String(120), unique=True, nullable=False)
-    secure_password = db.Column(db.String(60), nullable=False)
+    secure_password = db.Column(db.String(200), nullable=False)
     orders = db.relationship('UserCart', backref='owner', lazy=True)
 
     @property
