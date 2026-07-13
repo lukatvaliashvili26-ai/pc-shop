@@ -5,7 +5,7 @@ from models import db, Account, Component, UserCart
 from forms import SignUpForm, SignInForm
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'neon-cyber-secret-2026'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shop.db'
 # app.py-ის თავში, სადაც კონფიგურაციაა
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -157,8 +157,10 @@ def order_finish():
     return redirect(url_for('catalog'))
 
 
-if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-        init_components()
-    app.run()
+with app.app_context():
+    db.create_all()
+    init_components()
+
+if _name_ == '_main_':
+    app.run(debug=True)
+
