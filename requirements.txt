@@ -4,3 +4,4 @@ gunicorn
 Flask-Bcrypt
 Flask-Login
 Flask-WTF
+email-validator
