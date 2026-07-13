@@ -44,8 +44,8 @@
                 <a class="nav-link" href="{{ url_for('mycart') }}" style="color: #00ffcc;">კალათა</a>
                 <a class="nav-link text-danger" href="{{ url_for('signout') }}">გასვლა</a>
             {% else %}
-                <a class="nav-link text-white" href="{{ url_for('signin') }}">შესვლა</a>
-                <a class="nav-link" href="{{ url_for('signup') }}" style="color: #ff007f;">რეგისტრაცია</a>
+                <a class="nav-link text-white" href="/log">შესვლა</a>
+                <a class="nav-link" href="/reg" style="color: #ff007f;">რეგისტრაცია</a>
             {% endif %}
         </div>
     </div>
