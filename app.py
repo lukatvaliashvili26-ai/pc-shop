@@ -19,7 +19,7 @@ login_mgr.login_message_category = 'warning'
 
 @login_mgr.user_loader
 def load_account(uid):
-    return Account.query.get(int(uid))
+    return db.session.get(Account, int(uid))
 
 
 def init_components():
