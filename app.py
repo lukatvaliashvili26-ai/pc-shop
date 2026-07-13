@@ -88,14 +88,13 @@ def signup():
         pw_hash = bcrypt.generate_password_hash(f.secure_password.data).decode('utf-8')
         acc = Account(nickname=f.nickname.data, email_address=f.email_address.data, secure_password=pw_hash)
         db.session.add(acc)
-try:
-    db.session.commit()
-    flash('ექაუნთი შეიქმნა! გაიარეთ ავტორიზაცია.', 'success')
-    return redirect(url_for('signin'))
-except Exception as e:
-    db.session.rollback()
-    print(e)
-    raise
+        try:
+            db.session.commit()
+            flash('ექაუნთი შეიქმნა! გაიარეთ ავტორიზაცია.', 'success')
+            return redirect(url_for('signin'))
+        except:
+            db.session.rollback()
+            flash('მონაცემები უკვე დაკავებულია.', 'danger')
     return render_template('signup.html', form=f)
 
 
