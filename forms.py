@@ -1,40 +1,73 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Email, Length
+from wtforms import (
+    StringField,
+    PasswordField,
+    SubmitField,
+    DateField,
+    RadioField,
+    TextAreaField
+)
+from wtforms.validators import DataRequired, Length, EqualTo
+
 
 class RegisterForm(FlaskForm):
-    username = StringField("enter username",
-                           validators=[DataRequired(message="username is required"),
-                                       Length(min=8, max=16,
-                                              message="the name must be between 8 and 16 characters long")])
 
-    password = PasswordField("enter password",
-                             validators=[DataRequired(message="username is required"),
-                                         Length(min=8, max=16,
-                                                message="the password must be between 8 and 16 characters long")])
+    username = StringField(
+        "მომხმარებელი",
+        validators=[
+            DataRequired(),
+            Length(min=3, max=16)
+        ]
+    )
 
-    repeat_password = PasswordField("repeat password",
-                                    validators=[EqualTo("password", message="passwords must be same")])
+    password = PasswordField(
+        "პაროლი",
+        validators=[
+            DataRequired(),
+            Length(min=8, max=16)
+        ]
+    )
 
-    birthday = DateField("mark your date of birth",
-                         validators=[DataRequired(message="birthday data selection is required")])
+    repeat_password = PasswordField(
+        "გაიმეორეთ პაროლი",
+        validators=[
+            EqualTo("password")
+        ]
+    )
 
-    gender = RadioField("choose gender",
-                        validators=[DataRequired(message="Gender selection is required")],
-                        choices=["Male", "Female"])
-    comment = TextAreaField("your comment")
-    submit = SubmitField("Register")
+    birthday = DateField(
+        "დაბადების თარიღი",
+        validators=[DataRequired()]
+    )
+
+    gender = RadioField(
+        "სქესი",
+        choices=[
+            ("Male", "Male"),
+            ("Female", "Female")
+        ],
+        validators=[DataRequired()]
+    )
+
+    comment = TextAreaField("კომენტარი")
+
+    submit = SubmitField("რეგისტრაცია")
+
 
 class LoginForm(FlaskForm):
-    username = StringField("enter username",
-                           validators=[DataRequired(message="username is required"),
-                                       Length(min=8, max=16,
-                                              message="the name must be between 8 and 16 characters long")])
 
-    password = PasswordField("enter password",
-                             validators=[DataRequired(message="password is required"),
-                                         Length(min=8, max=16,
-                                                message="the password must be between 8 and 16 characters long")])
+    username = StringField(
+        "მომხმარებელი",
+        validators=[
+            DataRequired()
+        ]
+    )
 
-    submit = SubmitField("log in")
+    password = PasswordField(
+        "პაროლი",
+        validators=[
+            DataRequired()
+        ]
+    )
 
+    submit = SubmitField("შესვლა")
