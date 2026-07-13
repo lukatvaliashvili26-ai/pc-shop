@@ -105,7 +105,7 @@ def signin():
     f = SignInForm()
     if f.validate_on_submit():
         acc = Account.query.filter_by(email_address=f.email_address.data).first()
-       if acc and bcrypt.check_password_hash(acc.secure_password, f.secure_password.data):
+               if acc and bcrypt.check_password_hash(acc.secure_password.data, f.secure_password.data):
             login_user(acc)
             return redirect(url_for('catalog'))
         else:
