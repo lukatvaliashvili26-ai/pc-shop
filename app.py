@@ -126,7 +126,7 @@ def register():
 
 
     return render_template(
-        "register.html",
+        "signup.html",
         form=form)
 
 @app.route('/log', methods=['GET','POST'])
