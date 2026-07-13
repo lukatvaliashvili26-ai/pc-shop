@@ -11,9 +11,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
-with app.app_context():
-    db.create_all()
-    init_components()
 bcrypt = Bcrypt(app)
 login_mgr = LoginManager(app)
 login_mgr.login_view = 'signin'
