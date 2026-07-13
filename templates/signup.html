@@ -1,25 +1,25 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-5 neon-box p-4 text-white">
-        <h3 class="text-center text-info mb-4">რეგისტრაცია</h3>
-        <form method="POST">
-            {{ form.hidden_tag() }}
-            <div class="form-group">
-                {{ form.nickname.label }}
-                {{ form.nickname(class="form-control bg-dark text-white border-info") }}
-            </div>
-            <div class="form-group">
-                {{ form.email_address.label }}
-                {{ form.email_address(class="form-control bg-dark text-white border-info") }}
-            </div>
-            <div class="form-group">
-                {{ form.secure_password.label }}
-                {{ form.secure_password(class="form-control bg-dark text-white border-info") }}
-            </div>
-            {{ form.submit(class="btn btn-neon btn-block mt-4") }}
-        </form>
-    </div>
+<div class="d-flex w-50 mt-5 flex-column mx-auto">
+    <form method="post">
+
+        {{ form.hidden_tag() }}
+
+        {{ form.username(class="form-control mb-2" , placeholder=form.username.label.text ) }}
+        {{ form.password(class="form-control mb-2" , placeholder=form.password.label.text ) }}
+        {{ form.repeat_password(class="form-control mb-2", placeholder=form.repeat_password.label.text) }}
+
+        {{ form.birthday.label }}
+        {{ form.birthday(class="form-control mb-2" , ) }}
+
+        {{ form.gender.label }}
+        {{ form.gender(class="form-control" ) }}
+
+        {{ form.comment(class="form-control" , placeholder=form.comment.label.text ) }}
+
+         {{ form.submit(class=" mt-5 btn btn-danger" ) }}
+
+    </form>
 </div>
 {% endblock %}
 Compose
