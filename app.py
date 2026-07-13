@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, flash, request
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 from models import db, Account, Component, UserCart
-from forms import SignUpForm, SignInForm
+from forms import RegisterForm, LoginForm
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'neon-cyber-secret-2026'
@@ -79,32 +79,97 @@ def item_view(item_id):
     return render_template('item_detail.html', obj=obj)
 
 
-app.route("/reg", methods=["Get", "Post"])
+@app.route('/reg', methods=['GET', 'POST'])
 def register():
+
     form = RegisterForm()
+
     if form.validate_on_submit():
-        existing_user = User.query.filter_by(username=form.username.data).first()
+
+        existing_user = Account.query.filter_by(
+            nickname=form.username.data
+        ).first()
+
         if existing_user:
-            flash("username is already taken!", "danger")
-            return render_template("/main/register.html", form=form)
-        reg_user = User(
-            username=form.username.data,
-            password=generate_password_hash(form.password.data),
-            birthday=form.birthday.data,
-            gender=form.gender.data,
-            comment=form.comment.data
+            flash("მომხმარებელი უკვე არსებობს", "danger")
+            return render_template(
+                "register.html",
+                form=form
+            )
+
+
+        hashed_password = bcrypt.generate_password_hash(
+            form.password.data
+        ).decode('utf-8')
+
+
+        new_user = Account(
+            nickname=form.username.data,
+            email_address=form.username.data + "@mail.com",
+            secure_password=hashed_password
         )
-        db.session.add(reg_user)
+
+
+        db.session.add(new_user)
         db.session.commit()
-        flash("you have successfully registered!", "success")
-        return redirect("/")
-  @app.route("/logout")
-def log_out():
+
+
+        flash(
+            "რეგისტრაცია წარმატებულია",
+            "success"
+        )
+
+
+        return redirect(
+            url_for('signin')
+        )
+
+
+    return render_template(
+        "register.html",
+        form=form)
+
+@app.route('/log', methods=['GET','POST'])
+def signin():
+
+    form = LoginForm()
+
+
+    if form.validate_on_submit():
+
+        user = Account.query.filter_by(
+            nickname=form.username.data
+        ).first()
+
+
+        if user and bcrypt.check_password_hash(
+            user.secure_password,
+            form.password.data
+        ):
+
+            login_user(user)
+
+            return redirect(
+                url_for('catalog')
+            )
+
+
+        flash(
+            "არასწორი მომხმარებელი ან პაროლი",
+            "danger"
+        )
+
+
+    return render_template(
+        "signin.html",
+        form=form
+    )
+
+
+@app.route('/signout')
+def signout():
     logout_user()
-    return redirect("/")
-        else:
-            flash('არასწორი ფოსტა ან პაროლი.', 'danger')
-    return render_template('signin.html', form=f)
+    return redirect(url_for('catalog'))
 
 
 @app.route('/signout')
