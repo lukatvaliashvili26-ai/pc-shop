@@ -52,6 +52,27 @@ def init_components():
                 cost=75,
                 info="სწრაფი მაღალი ხარისხის NVMe SSD.",
                 img_link="images/ssd.jpg"
+            ),
+            Component(
+                title="Intel Core i9-14900K",
+                tech_type="CPU",
+                cost=550,
+                info="უძლიერესი პროცესორი სამუშაოდ და გეიმინგისთვის.",
+                img_link="images/cpu2.jpg"
+            ),
+            Component(
+                title="NVIDIA RTX 4090",
+                tech_type="GPU",
+                cost=1700,
+                info="ყველაზე მძლავრი ვიდეოკარტა გეიმინგისთვის.",
+                img_link="images/gpu2.jpg"
+            ),
+            Component(
+                title="Samsung 990 Pro 2TB",
+                tech_type="SSD",
+                cost=190,
+                info="ულტრა სწრაფი NVMe SSD.",
+                img_link="images/ssd2.jpg"
             )
         ]
         db.session.add_all(items)
