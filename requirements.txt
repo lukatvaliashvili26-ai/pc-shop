@@ -1,7 +1,7 @@
-Flask
-Flask-SQLAlchemy
+flask
+flask-sqlalchemy
 gunicorn
-Flask-Bcrypt
-Flask-Login
-Flask-WTF
+flask-bcrypt
+flask-login
+flask-wtf
 email-validator
