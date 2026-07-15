@@ -65,14 +65,14 @@ def init_components():
                 tech_type="GPU",
                 cost=1700,
                 info="ყველაზე მძლავრი ვიდეოკარტა გეიმინგისთვის.",
-                img_link="images/gpu2.jpg"
+                img_link="images/4090.jpg"
             ),
             Component(
                 title="Samsung 990 Pro 2TB",
                 tech_type="SSD",
                 cost=190,
                 info="ულტრა სწრაფი NVMe SSD.",
-                img_link="images/ssd2.jpg"
+                img_link="images/2t.jpg"
             )
         ]
         db.session.add_all(items)
