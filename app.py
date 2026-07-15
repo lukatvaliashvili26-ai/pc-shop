@@ -7,7 +7,7 @@ from forms import RegisterForm, LoginForm
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'neon-cyber-secret-2026'
 # app.py-ის თავში, სადაც კონფიგურაციაა
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cyber_shop.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cyber_shop_v2.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
