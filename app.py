@@ -58,7 +58,7 @@ def init_components():
                 tech_type="CPU",
                 cost=550,
                 info="უძლიერესი პროცესორი სამუშაოდ და გეიმინგისთვის.",
-                img_link="images/cpu2.jpg"
+                img_link="images/i9.jpg"
             ),
             Component(
                 title="NVIDIA RTX 4090",
