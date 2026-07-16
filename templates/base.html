@@ -1,0 +1,64 @@
+<!DO<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <title>CYBER HARDWARE</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #05050a;
+            color: #00ffcc;
+            font-family: 'Courier New', monospace;
+        }
+        .cyber-nav {
+            background: #0a0a14;
+            border-bottom: 2px solid #ff007f;
+            box-shadow: 0 0 15px #ff007f;
+        }
+        .neon-box {
+            background: #0e0e1e;
+            border: 1px solid #00ffcc;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+            border-radius: 4px;
+        }
+        .btn-neon {
+            background: transparent;
+            border: 2px solid #ff007f;
+            color: #ff007f;
+            text-shadow: 0 0 5px #ff007f;
+            box-shadow: 0 0 5px #ff007f;
+        }
+        .btn-neon:hover {
+            background: #ff007f;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark cyber-nav py-3">
+    <div class="container">
+        <a class="navbar-brand font-weight-bold" href="{{ url_for('catalog') }}" style="color: #ff007f; text-shadow: 0 0 10px #ff007f;">[ CYBER_SHOP ]</a>
+        <div class="navbar-nav ml-auto">
+            <a class="nav-link text-white" href="{{ url_for('catalog') }}">კატალოგი</a>
+            {% if current_user.is_authenticated %}
+                <a class="nav-link" href="{{ url_for('mycart') }}" style="color: #00ffcc;">კალათა</a>
+                <a class="nav-link text-danger" href="{{ url_for('signout') }}">გასვლა</a>
+            {% else %}
+                <a class="nav-link text-white" href="/log">შესვლა</a>
+                <a class="nav-link" href="/reg" style="color: #ff007f;">რეგისტრაცია</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+<div class="container my-5">
+    {% with msgs = get_flashed_messages(with_categories=true) %}
+        {% if msgs %}
+            {% for cat, msg in msgs %}
+                <div class="alert alert-dark text-center border-info text-info">{{ msg }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>
