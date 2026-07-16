@@ -1,45 +1,46 @@
 {% extends 'base.html' %}
+
 {% block content %}
-<div class="text-center mb-5">
-    <h1 style="color: #00ffcc; text-shadow: 0 0 20px #00ffcc;">PC shop</h1>
-</div>
+<div class="container mt-4">
+    <h2 class="text-white">PC shop</h2>
 
-<form method="GET" action="{{ url_for('catalog') }}" class="form-row mb-5">
-    <div class="col-md-6 mb-2">
-        <input type="text" name="find" class="form-control bg-dark text-white border-info" placeholder="ძებნა სისტემაში...">
-    </div>
-    <div class="col-md-4 mb-2">
-        <select name="type" class="form-control bg-dark text-white border-info">
-            <option value="">ყველა მოდული</option>
-            <option value="CPU">CPU</option>
-            <option value="GPU">GPU</option>
-            <option value="RAM">RAM</option>
-            <option value="SSD">SSD</option>
-        </select>
-    </div>
-    <div class="col-md-2">
-        <button type="submit" class="btn btn-neon btn-block">სკანირება</button>
-    </div>
-</form>
+    <!-- აქ ჩავსვი შენი ახალი ღილაკი, რომელიც გამოჩნდება მხოლოდ შესულ მომხმარებელს -->
+    {% if current_user.is_authenticated %}
+        <div class="mb-4">
+            <a href="{{ url_for('add_item') }}" class="btn btn-success">ახალი ნივთის დამატება</a>
+        </div>
+    {% endif %}
 
-<div class="row">
-    {% for h in hardware %}
-    <div class="col-md-4 mb-4">
-        <div class="card neon-box text-white p-3">
-            <img src="{{ url_for('static', filename=h.img_link) }}" class="card-img-top" style="height: 180px; object-fit: cover; border: 1px solid #ff007f;">
-            <div class="card-body">
-                <h5 class="card-title font-weight-bold text-info">{{ h.title }}</h5>
-                <p class="card-text text-muted small">{{ h.info[:80] }}...</p>
-                <div class="d-flex justify-content-between align-items-center mt-3">
-                    <span class="font-weight-bold text-warning">${{ h.cost }}</span>
-                    <div>
-                        <a href="{{ url_for('item_view', item_id=h.id) }}" class="btn btn-sm btn-outline-info">დეტალები</a>
-                        <a href="{{ url_for('push_to_cart', el_id=h.id) }}" class="btn btn-sm btn-neon">+ 🛒</a>
+    <!-- შენი არსებული ძიების ფორმა -->
+    <form method="GET" action="{{ url_for('catalog') }}" class="form-row mb-5">
+        <div class="col-md-6">
+            <input type="text" name="find" class="form-control bg-dark text-white" placeholder="ძიება სისტემაში...">
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary btn-block">სკანირება</button>
+        </div>
+    </form>
+
+    <!-- კომპონენტების გამოტანა -->
+    <div class="row">
+        {% for h in hardware %}
+            <div class="col-md-4 mb-4">
+                <div class="card bg-dark text-white p-3">
+                    <img src="{{ url_for('static', filename=h.img_link) }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title font-weight-bold">{{ h.title }}</h5>
+                        <p class="card-text">{{ h.info }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-warning">${{ h.cost }}</span>
+                            <div>
+                                <a href="{{ url_for('item_view', item_id=h.id) }}" class="btn btn-sm btn-outline-info">დეტალები</a>
+                                <a href="{{ url_for('push_to_cart', el_id=h.id) }}" class="btn btn-sm btn-neon">+ 🛒</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
 {% endblock %}
