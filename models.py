@@ -95,4 +95,3 @@ class UserCart(db.Model):
     item = db.relationship(
         'Component'
     )
-
